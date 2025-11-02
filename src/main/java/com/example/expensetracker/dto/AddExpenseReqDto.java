@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AddExpenseRequestDto {
+public class AddExpenseReqDto {
 
     private String title;
     private Long amount;
