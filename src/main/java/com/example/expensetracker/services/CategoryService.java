@@ -1,2 +1,4 @@
-package com.example.expensetracker.services;public interface CategoryService {
+package com.example.expensetracker.services;
+
+public interface CategoryService {
 }

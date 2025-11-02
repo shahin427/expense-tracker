@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Expense {
+public class ExpenseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class Expense {
 
     @JoinColumn(name = "category")
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
-    private Category category;
+    private CategoryEntity categoryEntity;
 
     private LocalDateTime creationTime;
 

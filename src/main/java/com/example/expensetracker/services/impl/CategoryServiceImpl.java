@@ -1,2 +1,7 @@
-package com.example.expensetracker.services.impl;public class CategoryServiceImpl {
+package com.example.expensetracker.services.impl;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class CategoryServiceImpl {
 }
