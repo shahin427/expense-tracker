@@ -22,7 +22,6 @@ public class AlertEntity {
     @OneToOne(fetch = FetchType.LAZY)
     private CategoryEntity category;
 
-    @Column(unique = true)
     private Long monthlyLimit;
 
     private String message;

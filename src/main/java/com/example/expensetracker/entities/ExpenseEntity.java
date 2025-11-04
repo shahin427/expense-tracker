@@ -25,7 +25,7 @@ public class ExpenseEntity {
     @Column(nullable = false)
     private Long amount;
 
-    @JoinColumn(name = "category")
+    @JoinColumn(name = "category_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private CategoryEntity category;
 

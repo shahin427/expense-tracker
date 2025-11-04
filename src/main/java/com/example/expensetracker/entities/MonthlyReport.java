@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.YearMonth;
+import java.util.List;
 
 @Entity
 @Table(name = "monthly_reports")
@@ -30,5 +31,6 @@ public class MonthlyReport {
     @Column(nullable = false)
     private Long totalSpent;
 
-    private Long MonthlyLimit;
+    private Long monthlyLimit;
+
 }

@@ -7,7 +7,6 @@ import com.example.expensetracker.services.CategoryService;
 import com.example.expensetracker.services.MonthlyReportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +22,6 @@ public class ReportJob {
     private final ExpenseRepository expenseRepository;
     private final MonthlyReportService monthlyReportService;
 
-    @Async
     @Scheduled(cron = "0 0 1 1 * ?") // 1st of every month 1 AM
     public void generateMonthlyReport() {
         YearMonth previousMonth = YearMonth.now().minusMonths(1);
@@ -38,10 +36,9 @@ public class ReportJob {
                     .reportTime(previousMonth)
                     .category(category)
                     .totalSpent(totalSpentAmount)
-                    .MonthlyLimit(category.getAlert().getMonthlyLimit())
+                    .monthlyLimit(category.getAlert() != null ? category.getAlert().getMonthlyLimit() : 0)
                     .build();
             monthlyReportService.saveMonthlyReport(monthlyReport);
         }
-
     }
 }

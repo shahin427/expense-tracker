@@ -3,6 +3,7 @@ package com.example.expensetracker.controllers;
 import com.example.expensetracker.dto.AddExpenseReqDto;
 import com.example.expensetracker.dto.ExpenseResDto;
 import com.example.expensetracker.services.ExpenseService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class ExpenseController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ExpenseResDto> addExpense(@RequestBody AddExpenseReqDto req) {
+    public ResponseEntity<ExpenseResDto> addExpense(@RequestBody @Valid AddExpenseReqDto req) {
         return new ResponseEntity<>(expenseService.addExpense(req), HttpStatus.CREATED);
     }
 

@@ -63,7 +63,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         AlertEntity alert = opAlert.get();
         Long totalSpent = expenseRepository.totalSpentForCategoryBetween(category, startOfMonth, endOfMonth);
 
-        if (totalSpent.compareTo(alert.getMonthlyLimit()) > 0) {
+        if (totalSpent.compareTo(alert.getMonthlyLimit()) > 0 && alert.isEnabled()) {
             log.warn("ALERT: {} | Category: {} | Limit: {} | Spent: {}",
                     alert.getMessage(),
                     category.getName(),
