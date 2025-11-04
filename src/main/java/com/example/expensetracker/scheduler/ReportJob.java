@@ -1,7 +1,7 @@
 package com.example.expensetracker.scheduler;
 
 import com.example.expensetracker.entities.CategoryEntity;
-import com.example.expensetracker.entities.MonthlyReport;
+import com.example.expensetracker.entities.MonthlyReportEntity;
 import com.example.expensetracker.repositories.ExpenseRepository;
 import com.example.expensetracker.services.CategoryService;
 import com.example.expensetracker.services.MonthlyReportService;
@@ -35,13 +35,13 @@ public class ReportJob {
             try {
                 log.info("Category {} is being processed", category.getName());
                 Long totalSpentAmount = expenseRepository.totalSpentForCategoryBetween(category, startOfTheMonth, endOfTheMonth);
-                MonthlyReport monthlyReport = MonthlyReport.builder()
+                MonthlyReportEntity monthlyReportEntity = MonthlyReportEntity.builder()
                         .reportTime(LocalDate.from(previousMonth))
                         .category(category)
                         .totalSpent(totalSpentAmount)
                         .monthlyLimit(category.getAlert() != null ? category.getAlert().getMonthlyLimit() : 0)
                         .build();
-                monthlyReportService.saveMonthlyReport(monthlyReport);
+                monthlyReportService.saveMonthlyReport(monthlyReportEntity);
             } catch (Exception ex) {
                 log.warn("Error handling category {}: {}", category.getName(), ex.getMessage(), ex);                // Do Nothing
             }

@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.List;
 
 @Entity
 @Table(name = "monthly_reports")
@@ -17,7 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MonthlyReport {
+public class MonthlyReportEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
