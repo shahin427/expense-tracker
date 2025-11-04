@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 public class ExpenseResDto {
 
-    private Long Id;
+    private Long id;
     private String title;
     private Long amount;
     private LocalDateTime creationTime;

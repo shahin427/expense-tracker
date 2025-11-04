@@ -5,10 +5,12 @@ import com.example.expensetracker.dto.ExpenseResDto;
 import com.example.expensetracker.entities.AlertEntity;
 import com.example.expensetracker.entities.CategoryEntity;
 import com.example.expensetracker.entities.ExpenseEntity;
+import com.example.expensetracker.mapper.ExpenseMapper;
 import com.example.expensetracker.repositories.AlertRepository;
 import com.example.expensetracker.repositories.CategoryRepository;
 import com.example.expensetracker.repositories.ExpenseRepository;
 import com.example.expensetracker.services.ExpenseService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,17 +20,20 @@ import java.time.YearMonth;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class ExpenseServiceImpl implements ExpenseService {
 
     private final ExpenseRepository expenseRepository;
     private final CategoryRepository categoryRepository;
-
     private final AlertRepository alertRepository;
 
-    public ExpenseServiceImpl(ExpenseRepository expenseRepository, CategoryRepository categoryRepository, AlertRepository alertRepository) {
+    private final ExpenseMapper expenseMapper;
+
+    public ExpenseServiceImpl(ExpenseRepository expenseRepository, CategoryRepository categoryRepository, AlertRepository alertRepository, ExpenseMapper expenseMapper) {
         this.expenseRepository = expenseRepository;
         this.categoryRepository = categoryRepository;
         this.alertRepository = alertRepository;
+        this.expenseMapper = expenseMapper;
     }
 
     @Override
@@ -45,7 +50,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .build();
         ExpenseEntity savedEntity = expenseRepository.save(expenseEntity);
         checkAlertsForCategory(category, savedEntity.getCreationTime().toLocalDate());
-        return null;
+        return expenseMapper.toDto(expenseEntity);
     }
 
     private void checkAlertsForCategory(CategoryEntity category, LocalDate dateOfExpense) {
@@ -59,9 +64,11 @@ public class ExpenseServiceImpl implements ExpenseService {
         Long totalSpent = expenseRepository.totalSpentForCategoryBetween(category, startOfMonth, endOfMonth);
 
         if (totalSpent.compareTo(alert.getMonthlyLimit()) > 0) {
-
+            log.warn("ALERT: {} | Category: {} | Limit: {} | Spent: {}",
+                    alert.getMessage(),
+                    category.getName(),
+                    alert.getMonthlyLimit(),
+                    totalSpent);
         }
-
-
     }
 }
