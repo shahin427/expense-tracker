@@ -31,6 +31,4 @@ public class MonthlyReport {
     private Long totalSpent;
 
     private Long MonthlyLimit;
-
-    private boolean alertTriggered;
 }
