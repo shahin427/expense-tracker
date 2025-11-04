@@ -5,6 +5,8 @@ import com.example.expensetracker.dto.CategoryResDto;
 import com.example.expensetracker.services.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping("/add")
-    public CategoryResDto addCategory(@RequestBody @Valid AddCategoryReqDto addCategoryReqDto) {
-        return categoryService.addCategory(addCategoryReqDto);
+    public ResponseEntity<CategoryResDto> addCategory(@RequestBody @Valid AddCategoryReqDto req) {
+        return new ResponseEntity<>(categoryService.addCategory(req), HttpStatus.CREATED);
     }
 }

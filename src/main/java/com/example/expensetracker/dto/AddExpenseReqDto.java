@@ -1,5 +1,6 @@
 package com.example.expensetracker.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 public class AddExpenseReqDto {
 
     private String title;
-    @NotNull(message = "amount should not be null")
+    @NotBlank(message = "amount should not be null")
     @Positive(message = "amount should be positive")
     private Long amount;
     private LocalDateTime creationTime;

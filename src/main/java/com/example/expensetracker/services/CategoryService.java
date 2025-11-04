@@ -9,5 +9,5 @@ import java.util.List;
 public interface CategoryService {
     List<CategoryEntity> getAllCategories();
 
-    CategoryResDto addCategory(AddCategoryReqDto addCategoryReqDto);
+    CategoryResDto addCategory(AddCategoryReqDto req);
 }

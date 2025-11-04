@@ -25,17 +25,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryResDto addCategory(AddCategoryReqDto addCategoryReqDto) {
+    public CategoryResDto addCategory(AddCategoryReqDto req) {
         AlertEntity alert = null;
-        if (addCategoryReqDto.getAlert() != null) {
+        if (req.getAlert() != null) {
             alert = AlertEntity.builder()
-                    .message(addCategoryReqDto.getAlert().getMessage())
-                    .monthlyLimit(addCategoryReqDto.getAlert().getMonthlyLimit())
-                    .enabled(addCategoryReqDto.getAlert().isEnabled())
+                    .message(req.getAlert().getMessage())
+                    .monthlyLimit(req.getAlert().getMonthlyLimit())
+                    .enabled(req.getAlert().isEnabled())
                     .build();
         }
         CategoryEntity category = CategoryEntity.builder()
-                .name(addCategoryReqDto.getName())
+                .name(req.getName())
                 .alert(alert)
                 .build();
 
