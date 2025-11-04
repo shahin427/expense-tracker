@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "expenses")
-@Data
 @Builder
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ExpenseEntity {
 
     @Id
@@ -26,10 +26,11 @@ public class ExpenseEntity {
     private Long amount;
 
     @JoinColumn(name = "category")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
-    private CategoryEntity categoryEntity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CategoryEntity category;
 
     private LocalDateTime creationTime;
 
     private String note;
+
 }

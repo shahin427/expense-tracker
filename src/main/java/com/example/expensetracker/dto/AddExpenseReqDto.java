@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
 public class AddExpenseReqDto {
 
     private String title;
@@ -18,4 +18,6 @@ public class AddExpenseReqDto {
     private LocalDateTime creationTime;
     private Long category;
     private String note;
+
+
 }

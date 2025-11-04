@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
 public class ExpenseResDto {
 
     private Long Id;
@@ -20,4 +20,6 @@ public class ExpenseResDto {
     private LocalDateTime creationTime;
     private Long category;
     private String note;
+
+
 }

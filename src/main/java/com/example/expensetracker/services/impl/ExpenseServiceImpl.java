@@ -1,28 +1,52 @@
 package com.example.expensetracker.services.impl;
 
+import com.example.expensetracker.dto.AddExpenseReqDto;
 import com.example.expensetracker.dto.ExpenseResDto;
 import com.example.expensetracker.entities.CategoryEntity;
+import com.example.expensetracker.entities.ExpenseEntity;
 import com.example.expensetracker.repositories.CategoryRepository;
 import com.example.expensetracker.repositories.ExpenseRepository;
 import com.example.expensetracker.services.ExpenseService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.time.YearMonth;
 
 @Service
-@RequiredArgsConstructor
 public class ExpenseServiceImpl implements ExpenseService {
 
     private final ExpenseRepository expenseRepository;
     private final CategoryRepository categoryRepository;
 
-    @Override
-    public ExpenseResDto addExpense(String title, Long amount, Long category, LocalDateTime localDateTime, String note) {
-        CategoryEntity categoryEntity = categoryRepository.findById(category).orElseThrow(() -> new RuntimeException());  //TODO:: custom exception handling
+    public ExpenseServiceImpl(ExpenseRepository expenseRepository, CategoryRepository categoryRepository) {
+        this.expenseRepository = expenseRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
-        
+    @Override
+    @Transactional
+    public ExpenseResDto addExpense(AddExpenseReqDto req) {
+
+        CategoryEntity category = categoryRepository.findById(req.getCategory()).orElseThrow(() -> new RuntimeException());  //TODO:: custom exception handling
+        ExpenseEntity expenseEntity = ExpenseEntity.builder()
+                .title(req.getTitle())
+                .amount(req.getAmount())
+                .note(req.getNote())
+                .creationTime(req.getCreationTime() != null ? req.getCreationTime() : LocalDateTime.now())
+                .category(category)
+                .build();
+        ExpenseEntity savedEntity = expenseRepository.save(expenseEntity);
+        checkAlertsForCategory(category, savedEntity.getCreationTime().toLocalDate());
+        return null;
+    }
+
+    private void checkAlertsForCategory(CategoryEntity category, LocalDate dateOfExpense) {
+
+        YearMonth currentMonth = YearMonth.from(dateOfExpense);
+        LocalDateTime startOfMonth = currentMonth.atDay(1).atStartOfDay();
+        LocalDateTime endOfMonth = currentMonth.plusMonths(1).atDay(1).atStartOfDay();
 
 
     }

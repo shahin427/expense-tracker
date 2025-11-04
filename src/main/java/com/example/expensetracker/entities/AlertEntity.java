@@ -1,6 +1,5 @@
 package com.example.expensetracker.entities;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,23 +7,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "alerts")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
-public class CategoryEntity {
+public class AlertEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String name;
+    @JoinColumn(name = "category_id", unique = true)
+    @OneToOne(fetch = FetchType.LAZY)
+    private CategoryEntity category;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
-    private AlertEntity alert;
+    @Column(unique = true)
+    private Long monthlyLimit;
+
+    private String message;
+
+    private boolean enabled = true;
+
+
 }
-
-
-
