@@ -2,8 +2,10 @@ package com.example.expensetracker.services.impl;
 
 import com.example.expensetracker.dto.AddExpenseReqDto;
 import com.example.expensetracker.dto.ExpenseResDto;
+import com.example.expensetracker.entities.AlertEntity;
 import com.example.expensetracker.entities.CategoryEntity;
 import com.example.expensetracker.entities.ExpenseEntity;
+import com.example.expensetracker.repositories.AlertRepository;
 import com.example.expensetracker.repositories.CategoryRepository;
 import com.example.expensetracker.repositories.ExpenseRepository;
 import com.example.expensetracker.services.ExpenseService;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.util.Optional;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
@@ -20,9 +23,12 @@ public class ExpenseServiceImpl implements ExpenseService {
     private final ExpenseRepository expenseRepository;
     private final CategoryRepository categoryRepository;
 
-    public ExpenseServiceImpl(ExpenseRepository expenseRepository, CategoryRepository categoryRepository) {
+    private final AlertRepository alertRepository;
+
+    public ExpenseServiceImpl(ExpenseRepository expenseRepository, CategoryRepository categoryRepository, AlertRepository alertRepository) {
         this.expenseRepository = expenseRepository;
         this.categoryRepository = categoryRepository;
+        this.alertRepository = alertRepository;
     }
 
     @Override
@@ -47,6 +53,14 @@ public class ExpenseServiceImpl implements ExpenseService {
         YearMonth currentMonth = YearMonth.from(dateOfExpense);
         LocalDateTime startOfMonth = currentMonth.atDay(1).atStartOfDay();
         LocalDateTime endOfMonth = currentMonth.plusMonths(1).atDay(1).atStartOfDay();
+        Optional<AlertEntity> opAlert = alertRepository.findByCategoryAndEnabledTrue(category);
+        if (opAlert.isEmpty()) return;
+        AlertEntity alert = opAlert.get();
+        Long totalSpent = expenseRepository.totalSpentForCategoryBetween(category, startOfMonth, endOfMonth);
+
+        if (totalSpent.compareTo(alert.getMonthlyLimit()) > 0) {
+
+        }
 
 
     }
