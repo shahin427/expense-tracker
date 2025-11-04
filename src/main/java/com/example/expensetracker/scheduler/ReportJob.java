@@ -1,8 +1,12 @@
 package com.example.expensetracker.scheduler;
 
 import com.example.expensetracker.entities.CategoryEntity;
+import com.example.expensetracker.entities.MonthlyReport;
+import com.example.expensetracker.repositories.ExpenseRepository;
 import com.example.expensetracker.services.CategoryService;
+import com.example.expensetracker.services.MonthlyReportService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -13,20 +17,30 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class ReportJob {
     private final CategoryService categoryService;
+    private final ExpenseRepository expenseRepository;
+    private final MonthlyReportService monthlyReportService;
 
     @Async
     @Scheduled(cron = "0 0 1 1 * ?") // 1st of every month 1 AM
     public void generateMonthlyReport() {
-        YearMonth yearMonth = YearMonth.now().minusMonths(1);
-        LocalDateTime startOfTheMonth = yearMonth.atDay(1).atStartOfDay();
+        YearMonth previousMonth = YearMonth.now().minusMonths(1);
+        LocalDateTime startOfTheMonth = previousMonth.atDay(1).atStartOfDay();
         LocalDateTime endOfTheMonth = startOfTheMonth.plusMonths(1).toLocalDate().atStartOfDay();
 
         List<CategoryEntity> categories = categoryService.getAllCategories();
 
         for (CategoryEntity category : categories) {
-            Long spentAmount =
+            Long totalSpentAmount = expenseRepository.totalSpentForCategoryBetween(category, startOfTheMonth, endOfTheMonth);
+            MonthlyReport monthlyReport = MonthlyReport.builder()
+                    .reportTime(previousMonth)
+                    .category(category)
+                    .totalSpent(totalSpentAmount)
+                    .MonthlyLimit(category.getAlert().getMonthlyLimit())
+                    .build();
+            monthlyReportService.saveMonthlyReport(monthlyReport);
         }
 
     }
