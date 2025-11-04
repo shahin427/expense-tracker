@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class MonthlyReport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private YearMonth reportTime;
+    private LocalDate reportTime;
 
     @JoinColumn(name = "category_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
