@@ -20,6 +20,7 @@ public class TokenUtils {
                 .setSubject(user.getUsername())
                 .claim("name",user.getName())
                 .claim("familyName",user.getFamilyName())
+                .claim("roles", user.getRoles().stream().map(role -> role.getTitle()).toList())
                 .setIssuedAt(new Date())
                 .signWith(key)
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))

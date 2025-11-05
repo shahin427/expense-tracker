@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -37,7 +39,7 @@ public class UserController {
         }
         Set<RoleEntity> roles = roleService.findByIdIn(req.getRoleIds());
         UserEntity userEntity = UserEntity.builder()
-                .userName(req.getUsername())
+                .username(req.getUsername())
                 .name(req.getName())
                 .familyName(req.getFamilyName())
                 .roles(roles)
@@ -53,12 +55,14 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public UserResDto login(@RequestBody @Valid LoginDto loginDto) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody @Valid LoginDto loginDto) {
+
         UserEntity user = userService.findByUserName(loginDto.getUsername()).orElseThrow(() -> new RuntimeException("Username or password is inalid"));
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Username or password is inalid");
         }
+
         String token = TokenUtils.generateToken(user);
-        return null;
+        return new ResponseEntity<>(Map.of("token", token), HttpStatus.OK);
     }
 }
