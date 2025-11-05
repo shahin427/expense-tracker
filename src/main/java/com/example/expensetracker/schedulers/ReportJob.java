@@ -1,4 +1,4 @@
-package com.example.expensetracker.scheduler;
+package com.example.expensetracker.schedulers;
 
 import com.example.expensetracker.entities.CategoryEntity;
 import com.example.expensetracker.entities.MonthlyReportEntity;

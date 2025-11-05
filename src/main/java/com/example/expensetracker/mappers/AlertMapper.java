@@ -1,7 +1,7 @@
-package com.example.expensetracker.mapper;
+package com.example.expensetracker.mappers;
 
 
-import com.example.expensetracker.dto.AlertEntityDto;
+import com.example.expensetracker.dtos.AlertEntityDto;
 import com.example.expensetracker.entities.AlertEntity;
 import org.mapstruct.Mapper;
 

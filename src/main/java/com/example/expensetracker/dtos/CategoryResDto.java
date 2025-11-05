@@ -1,4 +1,4 @@
-package com.example.expensetracker.dto;
+package com.example.expensetracker.dtos;
 
 
 import lombok.AllArgsConstructor;
@@ -10,14 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class AlertEntityDto {
+public class CategoryResDto {
 
     private Long id;
 
-    private Long monthlyLimit;
+    private String name;
 
-    private String message;
-
-    private boolean enabled = true;
-
+    private AlertEntityDto alert;
 }

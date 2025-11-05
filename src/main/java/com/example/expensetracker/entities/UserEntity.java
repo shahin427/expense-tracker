@@ -26,7 +26,7 @@ public class UserEntity {
     private String familyName;
 
     @Column(unique = true)
-    private String userName;
+    private String username;
 
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},

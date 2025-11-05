@@ -1,6 +1,6 @@
-package com.example.expensetracker.dto;
+package com.example.expensetracker.dtos;
 
-
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class RoleResDto {
+public class AddRoleReqDto {
 
+
+    @NotEmpty(message = "title should not be null")
     private String title;
 }

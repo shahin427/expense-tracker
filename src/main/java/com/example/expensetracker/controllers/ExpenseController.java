@@ -1,7 +1,7 @@
 package com.example.expensetracker.controllers;
 
-import com.example.expensetracker.dto.AddExpenseReqDto;
-import com.example.expensetracker.dto.ExpenseResDto;
+import com.example.expensetracker.dtos.AddExpenseReqDto;
+import com.example.expensetracker.dtos.ExpenseResDto;
 import com.example.expensetracker.services.ExpenseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

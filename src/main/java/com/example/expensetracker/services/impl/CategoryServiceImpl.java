@@ -1,10 +1,10 @@
 package com.example.expensetracker.services.impl;
 
-import com.example.expensetracker.dto.AddCategoryReqDto;
-import com.example.expensetracker.dto.CategoryResDto;
+import com.example.expensetracker.dtos.AddCategoryReqDto;
+import com.example.expensetracker.dtos.CategoryResDto;
 import com.example.expensetracker.entities.AlertEntity;
 import com.example.expensetracker.entities.CategoryEntity;
-import com.example.expensetracker.mapper.CategoryMapper;
+import com.example.expensetracker.mappers.CategoryMapper;
 import com.example.expensetracker.repositories.CategoryRepository;
 import com.example.expensetracker.services.CategoryService;
 import lombok.RequiredArgsConstructor;

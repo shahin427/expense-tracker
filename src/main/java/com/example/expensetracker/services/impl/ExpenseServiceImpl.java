@@ -1,11 +1,11 @@
 package com.example.expensetracker.services.impl;
 
-import com.example.expensetracker.dto.AddExpenseReqDto;
-import com.example.expensetracker.dto.ExpenseResDto;
+import com.example.expensetracker.dtos.AddExpenseReqDto;
+import com.example.expensetracker.dtos.ExpenseResDto;
 import com.example.expensetracker.entities.AlertEntity;
 import com.example.expensetracker.entities.CategoryEntity;
 import com.example.expensetracker.entities.ExpenseEntity;
-import com.example.expensetracker.mapper.ExpenseMapper;
+import com.example.expensetracker.mappers.ExpenseMapper;
 import com.example.expensetracker.repositories.AlertRepository;
 import com.example.expensetracker.repositories.CategoryRepository;
 import com.example.expensetracker.repositories.ExpenseRepository;

@@ -1,7 +1,7 @@
 package com.example.expensetracker.controllers;
 
-import com.example.expensetracker.dto.AddRoleReqDto;
-import com.example.expensetracker.dto.RoleResDto;
+import com.example.expensetracker.dtos.AddRoleReqDto;
+import com.example.expensetracker.dtos.RoleResDto;
 import com.example.expensetracker.services.RoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

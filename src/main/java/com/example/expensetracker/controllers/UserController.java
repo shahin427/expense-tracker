@@ -1,12 +1,13 @@
 package com.example.expensetracker.controllers;
 
-import com.example.expensetracker.dto.LoginDto;
-import com.example.expensetracker.dto.SignupReqDto;
-import com.example.expensetracker.dto.UserResDto;
+import com.example.expensetracker.dtos.LoginDto;
+import com.example.expensetracker.dtos.SignupReqDto;
+import com.example.expensetracker.dtos.UserResDto;
 import com.example.expensetracker.entities.RoleEntity;
 import com.example.expensetracker.entities.UserEntity;
 import com.example.expensetracker.services.RoleService;
 import com.example.expensetracker.services.UserService;
+import com.example.expensetracker.utils.TokenUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -28,8 +27,8 @@ public class UserController {
 
     private final UserService userService;
     private final RoleService roleService;
-
     private final PasswordEncoder passwordEncoder;
+
 
     @PostMapping("/signup")
     public ResponseEntity<UserResDto> signup(@RequestBody @Valid SignupReqDto req) {
@@ -59,5 +58,7 @@ public class UserController {
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Username or password is inalid");
         }
+        String token = TokenUtils.generateToken(user);
+        return null;
     }
 }
