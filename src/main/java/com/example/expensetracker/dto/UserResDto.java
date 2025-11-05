@@ -13,6 +13,6 @@ public class UserResDto {
 
     private String name;
     private String familyName;
-    private String userName;
+    private String username;
     private boolean registered;
 }

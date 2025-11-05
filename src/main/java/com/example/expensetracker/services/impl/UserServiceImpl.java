@@ -10,10 +10,16 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImp implements UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+
     @Override
-    public Optional<UserEntity> findByUserName(String userName) {
-        return userRepository.findByUserName(userName);
+    public Optional<UserEntity> findByUserName(String username) {
+        return userRepository.findByUserName(username);
+    }
+
+    @Override
+    public void save(UserEntity userEntity) {
+        userRepository.save(userEntity);
     }
 }
