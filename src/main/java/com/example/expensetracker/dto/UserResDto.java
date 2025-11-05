@@ -1,0 +1,18 @@
+package com.example.expensetracker.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
+public class UserResDto {
+
+    private String name;
+    private String familyName;
+    private String userName;
+    private boolean registered;
+}
