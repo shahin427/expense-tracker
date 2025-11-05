@@ -6,7 +6,10 @@ import com.example.expensetracker.entities.RoleEntity;
 import com.example.expensetracker.entities.UserEntity;
 import com.example.expensetracker.services.RoleService;
 import com.example.expensetracker.services.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +30,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/signup")
-    public UserResDto signup(@RequestBody SignupReqDto req) {
+    public ResponseEntity<UserResDto> signup(@RequestBody @Valid SignupReqDto req) {
         if (userService.findByUserName(req.getUsername()).isPresent()) {
             throw new RuntimeException("Entered username exists, please choose another username...");
         }
@@ -40,11 +43,11 @@ public class UserController {
                 .password(passwordEncoder.encode(req.getPassword()))
                 .build();
         userService.save(userEntity);
-        return UserResDto.builder()
+        return new ResponseEntity<>(UserResDto.builder()
                 .username(req.getUsername())
                 .familyName(req.getFamilyName())
                 .name(req.getName())
                 .registered(true)
-                .build();
+                .build(), HttpStatus.CREATED);
     }
 }
