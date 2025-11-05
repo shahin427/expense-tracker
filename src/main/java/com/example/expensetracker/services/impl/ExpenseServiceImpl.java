@@ -40,7 +40,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Transactional
     public ExpenseResDto addExpense(AddExpenseReqDto req) {
 
-        CategoryEntity category = categoryRepository.findById(req.getCategory()).orElseThrow(() -> new RuntimeException());  //TODO:: custom exception handling
+        CategoryEntity category = categoryRepository.findById(req.getCategoryId()).orElseThrow(() -> new RuntimeException("Category not found.."));  //TODO:: custom exception handling
         ExpenseEntity expenseEntity = ExpenseEntity.builder()
                 .title(req.getTitle())
                 .amount(req.getAmount())
