@@ -1,5 +1,6 @@
 package com.example.expensetracker.controllers;
 
+import com.example.expensetracker.dto.LoginDto;
 import com.example.expensetracker.dto.SignupReqDto;
 import com.example.expensetracker.dto.UserResDto;
 import com.example.expensetracker.entities.RoleEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -49,5 +51,13 @@ public class UserController {
                 .name(req.getName())
                 .registered(true)
                 .build(), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public UserResDto login(@RequestBody @Valid LoginDto loginDto) {
+        UserEntity user = userService.findByUserName(loginDto.getUsername()).orElseThrow(() -> new RuntimeException("Username or password is inalid"));
+        if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Username or password is inalid");
+        }
     }
 }
