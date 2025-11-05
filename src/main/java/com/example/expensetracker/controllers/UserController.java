@@ -7,7 +7,7 @@ import com.example.expensetracker.entities.RoleEntity;
 import com.example.expensetracker.entities.UserEntity;
 import com.example.expensetracker.services.RoleService;
 import com.example.expensetracker.services.UserService;
-import com.example.expensetracker.utils.TokenUtils;
+import com.example.expensetracker.security.TokenUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -57,9 +56,9 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody @Valid LoginDto loginDto) {
 
-        UserEntity user = userService.findByUserName(loginDto.getUsername()).orElseThrow(() -> new RuntimeException("Username or password is inalid"));
+        UserEntity user = userService.findByUserName(loginDto.getUsername()).orElseThrow(() -> new RuntimeException("Username or password is invalid"));
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Username or password is inalid");
+            throw new RuntimeException("Username or password is invalid");
         }
 
         String token = TokenUtils.generateToken(user);

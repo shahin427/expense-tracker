@@ -1,4 +1,4 @@
-package com.example.expensetracker.utils;
+package com.example.expensetracker.security;
 
 import com.example.expensetracker.entities.UserEntity;
 import io.jsonwebtoken.Jwts;
