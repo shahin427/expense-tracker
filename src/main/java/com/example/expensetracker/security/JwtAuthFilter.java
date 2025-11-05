@@ -25,11 +25,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
 
-//        String path = request.getRequestURI();
-//        if (path.equals("/user/login") || path.equals("/user/signup")) {
-//            filterChain.doFilter(request, response);
-//            return;
-//        }
+        String path = request.getRequestURI();
+        if (path.equals("/user/login") || path.equals("/user/signup") || path.equals("/h2-console") || path.equals("/role/add")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         String auth = request.getHeader("Authorization");
         String token;

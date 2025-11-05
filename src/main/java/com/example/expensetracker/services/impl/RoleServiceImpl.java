@@ -8,6 +8,7 @@ import com.example.expensetracker.repositories.RoleRepository;
 import com.example.expensetracker.services.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -23,12 +24,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public RoleResDto addRole(AddRoleReqDto req) {
         RoleEntity role = RoleEntity.builder()
                 .title(req.getTitle())
                 .build();
         RoleEntity savedRole = roleRepository.save(role);
         return roleMapper.toDto(savedRole);
-
     }
 }
