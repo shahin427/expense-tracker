@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Expense Category Management", description = "Endpoints for User Managing")
+@Tag(name = "Expense Category Management", description = "Endpoints for Category Managing")
 @RestController
 @RequestMapping("/category")
 @RequiredArgsConstructor

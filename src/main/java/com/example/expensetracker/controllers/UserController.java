@@ -84,4 +84,5 @@ public class UserController {
         String token = TokenUtils.generateToken(user);
         return new ResponseEntity<>(Map.of("token", token), HttpStatus.OK);
     }
+
 }
