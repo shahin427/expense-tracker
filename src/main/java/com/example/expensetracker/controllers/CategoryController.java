@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Expense Category Management", description = "Endpoints for Category Managing")
+@Tag(name = "Expense Category Management", description = "Endpoint for Category Managing")
 @RestController
 @RequestMapping("/category")
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class CategoryController {
     @PostMapping("/add")
     @Operation(summary = "category adding endpoint")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Role successfully created"),
+            @ApiResponse(responseCode = "201", description = "Category successfully created"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
             @ApiResponse(responseCode = "401", description = "Unauthorized access"),
             @ApiResponse(responseCode = "500", description = "Server error")

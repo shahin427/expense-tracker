@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 import java.util.Set;
 
-@Tag(name = "User Management", description = "Endpoints for User Managing")
+@Tag(name = "User Management", description = "Endpoint for User Managing")
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -69,7 +69,7 @@ public class UserController {
     @PostMapping("/login")
     @Operation(summary = "user login endpoint")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Role successfully created"),
+            @ApiResponse(responseCode = "201", description = "User successfully created"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
             @ApiResponse(responseCode = "401", description = "Unauthorized access"),
             @ApiResponse(responseCode = "500", description = "Server error")

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@Tag(name = "Role management", description = "Endpoints for Role Managing")
+@Tag(name = "Role management", description = "Endpoint for Role Managing")
 @RestController
 @RequestMapping("/role")
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class RoleController {
     @PostMapping("/add")
     @Operation(summary = "Add a new Role")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Role successfully created"),
+            @ApiResponse(responseCode = "201", description = "Role successfully created"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
             @ApiResponse(responseCode = "401", description = "Unauthorized access"),
             @ApiResponse(responseCode = "500", description = "Server error")
