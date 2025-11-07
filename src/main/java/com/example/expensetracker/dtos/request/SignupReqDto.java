@@ -1,4 +1,4 @@
-package com.example.expensetracker.dtos;
+package com.example.expensetracker.dtos.request;
 
 
 import jakarta.validation.constraints.NotEmpty;

@@ -1,7 +1,7 @@
 package com.example.expensetracker.services.impl;
 
-import com.example.expensetracker.dtos.AddRoleReqDto;
-import com.example.expensetracker.dtos.RoleResDto;
+import com.example.expensetracker.dtos.request.AddRoleReqDto;
+import com.example.expensetracker.dtos.response.RoleResDto;
 import com.example.expensetracker.entities.RoleEntity;
 import com.example.expensetracker.mappers.RoleMapper;
 import com.example.expensetracker.repositories.RoleRepository;

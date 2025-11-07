@@ -1,7 +1,7 @@
 package com.example.expensetracker.services.impl;
 
-import com.example.expensetracker.dtos.AddExpenseReqDto;
-import com.example.expensetracker.dtos.ExpenseResDto;
+import com.example.expensetracker.dtos.request.AddExpenseReqDto;
+import com.example.expensetracker.dtos.response.ExpenseResDto;
 import com.example.expensetracker.entities.AlertEntity;
 import com.example.expensetracker.entities.CategoryEntity;
 import com.example.expensetracker.entities.ExpenseEntity;

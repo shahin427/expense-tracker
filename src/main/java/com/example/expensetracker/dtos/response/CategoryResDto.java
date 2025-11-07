@@ -1,6 +1,7 @@
-package com.example.expensetracker.dtos;
+package com.example.expensetracker.dtos.response;
 
 
+import com.example.expensetracker.dtos.response.AlertEntityDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

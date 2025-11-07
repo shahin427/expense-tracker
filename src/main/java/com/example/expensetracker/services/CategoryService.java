@@ -1,7 +1,7 @@
 package com.example.expensetracker.services;
 
-import com.example.expensetracker.dtos.AddCategoryReqDto;
-import com.example.expensetracker.dtos.CategoryResDto;
+import com.example.expensetracker.dtos.request.AddCategoryReqDto;
+import com.example.expensetracker.dtos.response.CategoryResDto;
 import com.example.expensetracker.entities.CategoryEntity;
 
 import java.util.List;

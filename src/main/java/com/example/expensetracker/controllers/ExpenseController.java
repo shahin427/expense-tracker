@@ -1,7 +1,7 @@
 package com.example.expensetracker.controllers;
 
-import com.example.expensetracker.dtos.AddExpenseReqDto;
-import com.example.expensetracker.dtos.ExpenseResDto;
+import com.example.expensetracker.dtos.request.AddExpenseReqDto;
+import com.example.expensetracker.dtos.response.ExpenseResDto;
 import com.example.expensetracker.services.ExpenseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

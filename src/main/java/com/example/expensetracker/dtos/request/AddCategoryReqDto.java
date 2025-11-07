@@ -1,6 +1,7 @@
-package com.example.expensetracker.dtos;
+package com.example.expensetracker.dtos.request;
 
 
+import com.example.expensetracker.dtos.response.AlertEntityDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

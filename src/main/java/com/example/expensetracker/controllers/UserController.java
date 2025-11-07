@@ -1,8 +1,8 @@
 package com.example.expensetracker.controllers;
 
-import com.example.expensetracker.dtos.LoginDto;
-import com.example.expensetracker.dtos.SignupReqDto;
-import com.example.expensetracker.dtos.UserResDto;
+import com.example.expensetracker.dtos.request.LoginDto;
+import com.example.expensetracker.dtos.request.SignupReqDto;
+import com.example.expensetracker.dtos.response.UserResDto;
 import com.example.expensetracker.entities.RoleEntity;
 import com.example.expensetracker.entities.UserEntity;
 import com.example.expensetracker.services.RoleService;
