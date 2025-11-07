@@ -3,6 +3,10 @@ package com.example.expensetracker.controllers;
 import com.example.expensetracker.dtos.AddCategoryReqDto;
 import com.example.expensetracker.dtos.CategoryResDto;
 import com.example.expensetracker.services.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Expense Category Management", description = "Endpoints for User Managing")
 @RestController
 @RequestMapping("/category")
 @RequiredArgsConstructor
@@ -19,6 +24,13 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping("/add")
+    @Operation(summary = "category adding endpoint")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Role successfully created"),
+            @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized access"),
+            @ApiResponse(responseCode = "500", description = "Server error")
+    })
     public ResponseEntity<CategoryResDto> addCategory(@RequestBody @Valid AddCategoryReqDto req) {
         return new ResponseEntity<>(categoryService.addCategory(req), HttpStatus.CREATED);
     }

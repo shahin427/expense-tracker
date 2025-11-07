@@ -8,6 +8,10 @@ import com.example.expensetracker.entities.UserEntity;
 import com.example.expensetracker.services.RoleService;
 import com.example.expensetracker.services.UserService;
 import com.example.expensetracker.security.TokenUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 import java.util.Set;
 
+@Tag(name = "User Management", description = "Endpoints for User Managing")
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -32,6 +37,13 @@ public class UserController {
 
 
     @PostMapping("/signup")
+    @Operation(summary = "user signup endpoint")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Role successfully created"),
+            @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized access"),
+            @ApiResponse(responseCode = "500", description = "Server error")
+    })
     public ResponseEntity<UserResDto> signup(@RequestBody @Valid SignupReqDto req) {
         if (userService.findByUserName(req.getUsername()).isPresent()) {
             throw new RuntimeException("Entered username exists, please choose another username...");
@@ -53,7 +65,15 @@ public class UserController {
                 .build(), HttpStatus.CREATED);
     }
 
+
     @PostMapping("/login")
+    @Operation(summary = "user login endpoint")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Role successfully created"),
+            @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized access"),
+            @ApiResponse(responseCode = "500", description = "Server error")
+    })
     public ResponseEntity<Map<String, String>> login(@RequestBody @Valid LoginDto loginDto) {
 
         UserEntity user = userService.findByUserName(loginDto.getUsername()).orElseThrow(() -> new RuntimeException("Username or password is invalid"));
