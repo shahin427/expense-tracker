@@ -5,12 +5,14 @@ import com.example.expensetracker.dtos.response.ExpenseResDto;
 import com.example.expensetracker.entities.AlertEntity;
 import com.example.expensetracker.entities.CategoryEntity;
 import com.example.expensetracker.entities.ExpenseEntity;
+import com.example.expensetracker.exceptions.NotFoundException;
 import com.example.expensetracker.mappers.ExpenseMapper;
 import com.example.expensetracker.repositories.AlertRepository;
 import com.example.expensetracker.repositories.CategoryRepository;
 import com.example.expensetracker.repositories.ExpenseRepository;
 import com.example.expensetracker.services.ExpenseService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +42,8 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Transactional
     public ExpenseResDto addExpense(AddExpenseReqDto req) {
 
-        CategoryEntity category = categoryRepository.findById(req.getCategoryId()).orElseThrow(() -> new RuntimeException("Category not found.."));  //TODO:: custom exception handling
+        CategoryEntity category = categoryRepository.findById(req.getCategoryId()).orElseThrow(
+                () -> new NotFoundException("category with id" + req.getCategoryId() + "not found..", HttpStatus.NOT_FOUND));
         ExpenseEntity expenseEntity = ExpenseEntity.builder()
                 .title(req.getTitle())
                 .amount(req.getAmount())
