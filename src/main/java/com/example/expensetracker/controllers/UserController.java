@@ -32,8 +32,6 @@ import java.util.Set;
 public class UserController {
 
     private final UserService userService;
-    private final RoleService roleService;
-    private final PasswordEncoder passwordEncoder;
 
 
     @PostMapping("/signup")
@@ -45,44 +43,20 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Server error")
     })
     public ResponseEntity<UserResDto> signup(@RequestBody @Valid SignupReqDto req) {
-        if (userService.findByUserName(req.getUsername()).isPresent()) {
-            throw new RuntimeException("Entered username exists, please choose another username...");
-        }
-        Set<RoleEntity> roles = roleService.findByIdIn(req.getRoleIds());
-        UserEntity userEntity = UserEntity.builder()
-                .username(req.getUsername())
-                .name(req.getName())
-                .familyName(req.getFamilyName())
-                .roles(roles)
-                .password(passwordEncoder.encode(req.getPassword()))
-                .build();
-        userService.save(userEntity);
-        return new ResponseEntity<>(UserResDto.builder()
-                .username(req.getUsername())
-                .familyName(req.getFamilyName())
-                .name(req.getName())
-                .registered(true)
-                .build(), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.signup(req), HttpStatus.CREATED);
     }
 
 
     @PostMapping("/login")
     @Operation(summary = "user login endpoint")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "User successfully created"),
+            @ApiResponse(responseCode = "200", description = "User successfully logged in"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
             @ApiResponse(responseCode = "401", description = "Unauthorized access"),
             @ApiResponse(responseCode = "500", description = "Server error")
     })
     public ResponseEntity<Map<String, String>> login(@RequestBody @Valid LoginDto loginDto) {
-
-        UserEntity user = userService.findByUserName(loginDto.getUsername()).orElseThrow(() -> new RuntimeException("Username or password is invalid"));
-        if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Username or password is invalid");
-        }
-
-        String token = TokenUtils.generateToken(user);
-        return new ResponseEntity<>(Map.of("token", token), HttpStatus.OK);
+        return new ResponseEntity<>(userService.login(loginDto), HttpStatus.OK);
     }
 
 }

@@ -22,7 +22,7 @@ public class SignupReqDto {
     private String username;
     @NotEmpty(message = "password should not be empty")
     private String password;
-    @NotNull(message = "At least one role should be selected")
+    @NotEmpty(message = "At least one role should be selected")
     private Set<Long> roleIds;
 
 }
