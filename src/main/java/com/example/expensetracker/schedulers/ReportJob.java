@@ -24,8 +24,8 @@ public class ReportJob {
     private final ExpenseRepository expenseRepository;
     private final MonthlyReportService monthlyReportService;
 
-        @GetMapping("/run-report")
-//    @Scheduled(cron = "0 0 1 1 * ?") // First day of every month 1 AM
+//        @GetMapping("/run-report")
+    @Scheduled(cron = "0 0 1 1 * ?") // First day of every month 1 AM
     public void generateMonthlyReport() {
         YearMonth previousMonth = YearMonth.now().minusMonths(1);
         LocalDateTime startOfTheMonth = previousMonth.atDay(1).atStartOfDay();
