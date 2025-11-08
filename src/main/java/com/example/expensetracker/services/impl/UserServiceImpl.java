@@ -23,7 +23,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final UserService userService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
@@ -40,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResDto signup(SignupReqDto req) {
-        if (userService.findByUserName(req.getUsername()).isPresent()) {
+        if (userRepository.findByUsername(req.getUsername()).isPresent()) {
             throw new RuntimeException("Entered username exists, please choose another username...");
         }
         Set<RoleEntity> roles = roleService.findByIdIn(req.getRoleIds());
@@ -54,7 +53,7 @@ public class UserServiceImpl implements UserService {
                 .roles(roles)
                 .password(passwordEncoder.encode(req.getPassword()))
                 .build();
-        userService.save(userEntity);
+        userRepository.save(userEntity);
 
         return UserResDto.builder()
                 .username(req.getUsername())
@@ -66,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, String> login(LoginDto loginDto) {
-        UserEntity user = userService.findByUserName(loginDto.getUsername()).orElseThrow(() -> new RuntimeException("Username or password is invalid"));
+        UserEntity user = userRepository.findByUsername(loginDto.getUsername()).orElseThrow(() -> new RuntimeException("Username or password is invalid"));
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Username or password is invalid");
         }
