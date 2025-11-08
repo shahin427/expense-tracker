@@ -5,6 +5,8 @@ import com.example.expensetracker.dtos.request.SignupReqDto;
 import com.example.expensetracker.dtos.response.UserResDto;
 import com.example.expensetracker.entities.RoleEntity;
 import com.example.expensetracker.entities.UserEntity;
+import com.example.expensetracker.exceptions.BadRequestException;
+import com.example.expensetracker.exceptions.NotFoundException;
 import com.example.expensetracker.repositories.UserRepository;
 import com.example.expensetracker.security.TokenUtils;
 import com.example.expensetracker.services.RoleService;
@@ -40,11 +42,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResDto signup(SignupReqDto req) {
         if (userRepository.findByUsername(req.getUsername()).isPresent()) {
-            throw new RuntimeException("Entered username exists, please choose another username...");
+            throw new BadRequestException("Entered username exists, please choose another username...", HttpStatus.BAD_REQUEST);
         }
         Set<RoleEntity> roles = roleService.findByIdIn(req.getRoleIds());
         if (roles.size() == 0) {
-            throw new RuntimeException("Entered role is not valid");
+            throw new NotFoundException("Role with id " + req.getRoleIds() + " not found", HttpStatus.NOT_FOUND);
         }
         UserEntity userEntity = UserEntity.builder()
                 .username(req.getUsername())
@@ -65,7 +67,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, String> login(LoginDto loginDto) {
-        UserEntity user = userRepository.findByUsername(loginDto.getUsername()).orElseThrow(() -> new RuntimeException("Username or password is invalid"));
+        UserEntity user = userRepository.findByUsername(loginDto.getUsername()).orElseThrow(
+                () -> new BadRequestException("Username or password is invalid", HttpStatus.BAD_REQUEST));
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Username or password is invalid");
         }
