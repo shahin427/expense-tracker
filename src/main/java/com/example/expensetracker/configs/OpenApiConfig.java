@@ -1,4 +1,4 @@
-package com.example.expensetracker.config;
+package com.example.expensetracker.configs;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
