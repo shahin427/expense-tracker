@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 public class AddRoleReqDto {
 
 
-    @NotEmpty(message = "title should not be null")
+    @NotEmpty(message = "title should not be empty")
     private String title;
 }

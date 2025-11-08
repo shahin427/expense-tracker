@@ -1,10 +1,7 @@
 package com.example.expensetracker.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "alerts")
@@ -20,6 +17,7 @@ public class AlertEntity {
 
     @JoinColumn(name = "category_id", unique = true)
     @OneToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private CategoryEntity category;
 
     private Long monthlyLimit;
