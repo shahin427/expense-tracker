@@ -3,11 +3,7 @@ package com.example.expensetracker.controllers;
 import com.example.expensetracker.dtos.request.LoginDto;
 import com.example.expensetracker.dtos.request.SignupReqDto;
 import com.example.expensetracker.dtos.response.UserResDto;
-import com.example.expensetracker.entities.RoleEntity;
-import com.example.expensetracker.entities.UserEntity;
-import com.example.expensetracker.services.RoleService;
 import com.example.expensetracker.services.UserService;
-import com.example.expensetracker.security.TokenUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -16,14 +12,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
-import java.util.Set;
 
 @Tag(name = "User Management", description = "Endpoint for User Managing")
 @RestController

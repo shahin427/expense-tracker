@@ -35,13 +35,14 @@ Maven 3.8.1
 
 # Api Endpoints
 
-| Endpoint           | Method | Description                       |
-|-------------------|--------|-----------------------------------|
-| /user/signup       | POST   | Register a new user               |
-| /user/login        | POST   | Login and get a JWT token         |
-| /expense/add       | POST   | Add a new expense                 |
-| /category/add      | POST   | Add a new expense category        |
-| /role/add          | POST   | Add a new role (admin only)      |
+| Endpoint           | Method | Description                     |
+|-------------------|--------|---------------------------------|
+| /user/signup       | POST   | Register a new user             |
+| /user/login        | POST   | Login and get a JWT token       |
+| /expense/add       | POST   | Add a new expense               |
+| /category/add      | POST   | Add a new expense category      |
+| /role/add          | POST   | Add a new role (admin only)     |
+| /monthly-report    | GET    | Get monthly reports of expenses |
 
 
 # Example API usage

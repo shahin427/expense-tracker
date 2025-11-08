@@ -14,7 +14,7 @@ import java.util.Date;
 @Component
 public class TokenUtils {
 
-    static long expirationTime = 1000 * 60 * 10; // 10 minutes
+    static long expirationTime = 1000 * 60 * 60; // 1 hour
     private static final String SECRET_KEY = "mySecretKey1fdsafasfasdfasdfdsafgwert34tg3w4ty3y35yt32345";
     private static final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
@@ -41,9 +41,9 @@ public class TokenUtils {
 
             return claims.getSubject();
         } catch (ExpiredJwtException e) {
-            throw new RuntimeException("Token is expired");
+            throw new RuntimeException("Token is Expired");
         } catch (JwtException e) {
-            throw new RuntimeException("Invalid token");
+            throw new RuntimeException("Invalid Token");
         }
     }
 }
