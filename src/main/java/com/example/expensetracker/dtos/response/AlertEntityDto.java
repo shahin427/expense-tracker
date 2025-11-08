@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class AlertEntityDto {
 
+    private Long id;
+
     private Long monthlyLimit;
 
     private String message;
