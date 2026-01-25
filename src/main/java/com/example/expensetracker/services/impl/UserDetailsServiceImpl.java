@@ -1,9 +1,11 @@
 package com.example.expensetracker.services.impl;
 
 import com.example.expensetracker.entities.UserEntity;
+import com.example.expensetracker.exceptions.NotFoundException;
 import com.example.expensetracker.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,6 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             Hibernate.initialize(user.getRoles());
             return new UserDetailsImpl(user);
         }
-        throw new RuntimeException("Username not found!!");
+        throw new NotFoundException("Username not found!!", HttpStatus.NOT_FOUND);
     }
 }

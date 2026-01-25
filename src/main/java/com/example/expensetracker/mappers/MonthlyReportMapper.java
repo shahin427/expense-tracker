@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {CategoryMapper.class})
-@Component
 public interface MonthlyReportMapper {
 
     MonthlyReportResDto toDto(MonthlyReportEntity monthlyReport);

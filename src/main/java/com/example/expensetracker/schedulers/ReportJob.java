@@ -45,7 +45,7 @@ public class ReportJob {
                         .build();
                 monthlyReportService.saveMonthlyReport(monthlyReportEntity);
             } catch (Exception ex) {
-                log.warn("Error handling category {}: {}", category.getName(), ex.getMessage(), ex);                // Do Nothing
+                log.warn("Error handling category {}: {}", category.getName(), ex.getMessage(), ex);
             }
         }
         log.info("Monthly Report Finished at {}", LocalDateTime.now());

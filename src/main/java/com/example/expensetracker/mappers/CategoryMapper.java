@@ -6,7 +6,6 @@ import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring", uses = {AlertMapper.class})
-@Component
 public interface CategoryMapper {
     CategoryResDto toDto(CategoryEntity category);
 }

@@ -6,6 +6,8 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -13,10 +15,16 @@ import java.util.Date;
 
 @Component
 public class TokenUtils {
+    private static final long expirationTime = 1000 * 60 * 60;
 
-    static long expirationTime = 1000 * 60 * 60; // 1 hour
-    private static final String SECRET_KEY = "mySecretKey1fdsafasfasdfasdfdsafgwert34tg3w4ty3y35yt32345";
-    private static final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    private static Key key;
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
+
+    @PostConstruct
+    public void initialize() {
+        key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    }
 
     public static String generateToken(UserEntity user) {
         return Jwts.builder()

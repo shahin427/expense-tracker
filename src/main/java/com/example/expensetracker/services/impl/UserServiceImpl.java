@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
         UserEntity user = userRepository.findByUsername(loginDto.getUsername()).orElseThrow(
                 () -> new BadRequestException("Username or password is invalid", HttpStatus.BAD_REQUEST));
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Username or password is invalid");
+            throw new NotFoundException("Username or password is invalid", HttpStatus.NOT_FOUND);
         }
 
         String token = TokenUtils.generateToken(user);

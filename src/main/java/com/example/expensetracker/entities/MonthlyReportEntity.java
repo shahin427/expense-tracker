@@ -15,11 +15,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MonthlyReportEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class MonthlyReportEntity extends AbstractEntity{
 
     private LocalDate reportTime;
 
