@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoleEntity extends AbstractEntity {
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String title;
 }

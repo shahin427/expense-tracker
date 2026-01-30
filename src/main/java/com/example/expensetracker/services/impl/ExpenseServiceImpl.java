@@ -14,6 +14,7 @@ import com.example.expensetracker.services.ExpenseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -39,7 +40,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public ExpenseResDto addExpense(AddExpenseReqDto req) {
 
         CategoryEntity category = categoryRepository.findById(req.getCategoryId()).orElseThrow(
@@ -52,7 +53,11 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .category(category)
                 .build();
         ExpenseEntity savedEntity = expenseRepository.save(expenseEntity);
-        checkAlertsForCategory(category, savedEntity.getCreationTime().toLocalDate());
+        try {
+            checkAlertsForCategory(category, savedEntity.getCreationTime().toLocalDate());
+        } catch (RuntimeException ex) {
+            //Do Nothing
+        }
         return expenseMapper.toDto(expenseEntity);
     }
 

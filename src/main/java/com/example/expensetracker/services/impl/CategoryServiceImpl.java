@@ -9,6 +9,7 @@ import com.example.expensetracker.repositories.CategoryRepository;
 import com.example.expensetracker.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public CategoryResDto addCategory(AddCategoryReqDto req) {
         AlertEntity alert = null;
         if (req.getAlert() != null) {
