@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  expense-tracker:
+    image: expense-tracker:2.0
+    build: .
+    container_name: expense-tracker
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/reservation
+      SPRING_DATASOURCE_USERNAME: shahin
+      SPRING_DATASOURCE_PASSWORD: 1234
+    ports:
+      - "8090:8080"
+    depends_on:
+      - db
+  db:
+    image: mysql:8.0.45-debian
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_USER: shahin
+      MYSQL_DATABASE: reservation
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+volumes:
+  db-data:

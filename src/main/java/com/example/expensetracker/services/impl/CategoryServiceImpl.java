@@ -8,6 +8,9 @@ import com.example.expensetracker.mappers.CategoryMapper;
 import com.example.expensetracker.repositories.CategoryRepository;
 import com.example.expensetracker.services.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,5 +50,14 @@ public class CategoryServiceImpl implements CategoryService {
 
         CategoryEntity savedCategory = categoryRepository.save(category);
         return categoryMapper.toDto(savedCategory);
+    }
+
+    @Override
+    public Page<CategoryResDto> categoryList(String name, Pageable pageable) {
+        Page<CategoryEntity> categoryEntities = categoryRepository.categoryList(name, pageable);
+        List<CategoryResDto> categoryResDtos = categoryEntities.stream()
+                .map(entity -> new CategoryResDto(entity.getId(), entity.getName()))
+                .toList();
+        return new PageImpl<>(categoryResDtos,pageable,categoryEntities.getTotalElements());
     }
 }

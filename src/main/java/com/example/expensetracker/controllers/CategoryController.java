@@ -9,12 +9,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Expense Category Management", description = "Endpoint for Category Managing")
 @RestController
@@ -33,5 +32,10 @@ public class CategoryController {
     })
     public ResponseEntity<CategoryResDto> addCategory(@RequestBody @Valid AddCategoryReqDto req) {
         return new ResponseEntity<>(categoryService.addCategory(req), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Page<CategoryResDto>> categoryList(@RequestParam(required = false) String name, Pageable pageable) {
+        return new ResponseEntity<>(categoryService.categoryList(name, pageable), HttpStatus.OK);
     }
 }
