@@ -18,6 +18,7 @@ services:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_USER: shahin
       MYSQL_DATABASE: reservation
+      MYSQL_PASSWORD: 1234
     ports:
       - "3306:3306"
     volumes:
