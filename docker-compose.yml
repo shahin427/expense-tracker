@@ -5,7 +5,7 @@ services:
     build: .
     container_name: expense-tracker
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/reservation
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/expense-tracker
       SPRING_DATASOURCE_USERNAME: shahin
       SPRING_DATASOURCE_PASSWORD: 1234
     ports:
@@ -17,7 +17,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_USER: shahin
-      MYSQL_DATABASE: reservation
+      MYSQL_DATABASE: expense-tracker
       MYSQL_PASSWORD: 1234
     ports:
       - "3306:3306"
