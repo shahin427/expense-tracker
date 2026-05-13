@@ -5,9 +5,8 @@ services:
     build: .
     container_name: expense-tracker
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/expense-tracker
-      SPRING_DATASOURCE_USERNAME: shahin
-      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_PROFILES_ACTIVE: prod
+
     ports:
       - "8090:8080"
     depends_on:
